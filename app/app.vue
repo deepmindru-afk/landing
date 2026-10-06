@@ -9,15 +9,14 @@ useHead({
     { key: 'theme-color', name: 'theme-color', content: color }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico' }
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
   ],
   htmlAttrs: {
-    lang: 'en'
+    lang: 'ru'
   }
 })
 
 useSeoMeta({
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/landing-light.png',
   twitterCard: 'summary_large_image'
 })
 </script>

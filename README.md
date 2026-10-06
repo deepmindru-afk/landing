@@ -1,33 +1,33 @@
-# Nuxt Landing Template
+# Лендинг ООО «ФЕЛ ИКС»
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Сайт компании **ООО «ФЕЛ ИКС»** — комплексное сопровождение бизнеса в сфере B2B/B2C-маркетинга и IT.
 
-Use this template to build your own landing page with [Nuxt UI](https://ui.nuxt.com) quickly.
+- Сайт компании: [falx-b2b.ru](https://falx-b2b.ru)
+- Головной офис: Саратов, 3-й Дегтярный проезд, 3д 21 стр 3
+- Телефон: 8 926 371-42-00
+- График работы: Пн–вс, 09:00 — 20:00
 
-- [Live demo](https://landing-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+Собрано на [Nuxt UI](https://ui.nuxt.com).
 
-<a href="https://landing-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/landing-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/landing-light.png">
-    <img alt="Nuxt Landing Template" src="https://ui.nuxt.com/assets/templates/nuxt/landing-light.png">
-  </picture>
-</a>
+## Структура
 
-## Quick Start
+Весь контент страницы хранится в `content/index.yml` и проверяется Zod-схемой из `content.config.ts`.
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui/landing
-```
+| Секция | Ключ в YAML | Якорь |
+| --- | --- | --- |
+| Первый экран | `hero`, `terminal`, `logos` | — |
+| Услуги | `features` | `#services` |
+| Как мы работаем | `process` | `#process` |
+| О компании | `about` | `#about` |
+| Факты о компании | `metrics` | `#metrics` |
+| Контакты | `contacts` | `#contacts` |
+| Призыв к действию | `cta` | — |
 
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=landing&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Flanding&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Flanding-dark.png&demo-url=https%3A%2F%2Flanding-template.nuxt.dev%2F&demo-title=Nuxt%20Landing%20Template&demo-description=A%20modern%20landing%20page%20template%20powered%20by%20Nuxt%20Content.)
+Чтобы изменить текст, телефон или адрес, отредактируйте `content/index.yml` — компоненты подхватят изменения автоматически.
 
 ## Setup
 
-Make sure to install the dependencies:
+Установите зависимости:
 
 ```bash
 pnpm install
@@ -35,7 +35,7 @@ pnpm install
 
 ## Development Server
 
-Start the development server on `http://localhost:3000`:
+Запустите dev-сервер на `http://localhost:3000`:
 
 ```bash
 pnpm dev
@@ -43,20 +43,16 @@ pnpm dev
 
 ## Production
 
-Build the application for production:
+Соберите приложение для production:
 
 ```bash
 pnpm build
 ```
 
-Locally preview production build:
+Локальный предпросмотр production-сборки:
 
 ```bash
 pnpm preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+Подробнее о деплое — в [документации Nuxt](https://nuxt.com/docs/getting-started/deployment).

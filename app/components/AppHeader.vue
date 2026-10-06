@@ -2,23 +2,17 @@
 import { motion } from 'motion-v'
 import type { VariantType } from 'motion-v'
 
-const nuxtApp = useNuxtApp()
+const sections = ['services', 'process', 'about', 'contacts']
 const activeSection = ref<string>()
 
 const items = computed(() => [
-  {
-    label: 'Features',
-    to: '#features',
-    exactHash: true,
-    active: activeSection.value === 'features'
-  },
-  {
-    label: 'Metrics',
-    to: '#metrics',
-    exactHash: true,
-    active: activeSection.value === 'metrics'
-  }
+  { label: 'Услуги', to: '#services', active: activeSection.value === 'services' },
+  { label: 'Как мы работаем', to: '#process', active: activeSection.value === 'process' },
+  { label: 'О компании', to: '#about', active: activeSection.value === 'about' },
+  { label: 'Контакты', to: '#contacts', active: activeSection.value === 'contacts' }
 ])
+
+const nuxtApp = useNuxtApp()
 
 nuxtApp.hooks.hookOnce('page:loading:end', () => {
   const observer = new IntersectionObserver((entries) => {
@@ -30,7 +24,7 @@ nuxtApp.hooks.hookOnce('page:loading:end', () => {
     }
   }, { rootMargin: '-50% 0px -50% 0px' })
 
-  document.querySelectorAll('#features, #metrics').forEach(el => observer.observe(el))
+  document.querySelectorAll(sections.map(id => `#${id}`).join(', ')).forEach(el => observer.observe(el))
 })
 
 const variants: Record<string, VariantType | ((custom: unknown) => VariantType)> = {
@@ -64,8 +58,6 @@ const variants: Record<string, VariantType | ((custom: unknown) => VariantType)>
       >
         <AppLogo class="h-6 w-auto shrink-0" />
       </NuxtLink>
-
-      <TemplateMenu />
     </template>
 
     <UNavigationMenu
@@ -75,17 +67,19 @@ const variants: Record<string, VariantType | ((custom: unknown) => VariantType)>
 
     <template #right>
       <UButton
-        label="Sign in"
+        label="8 926 371-42-00"
+        icon="i-lucide-phone"
+        trailing
         color="neutral"
         variant="ghost"
-        class="hidden lg:flex"
+        class="hidden lg:flex font-mono text-xs tracking-tight"
+        to="tel:+79263714200"
       />
       <UButton
-        label="Get started"
+        label="Обсудить задачу"
         color="neutral"
         class="hidden lg:flex"
-        to="https://ui.nuxt.com"
-        target="_blank"
+        to="tel:+79263714200"
       />
     </template>
 
@@ -152,16 +146,18 @@ const variants: Record<string, VariantType | ((custom: unknown) => VariantType)>
 
       <div class="mt-4 flex flex-col gap-2">
         <UButton
-          label="Sign in"
+          label="Обсудить задачу"
+          block
+          to="tel:+79263714200"
+        />
+        <UButton
+          label="8 926 371-42-00"
+          icon="i-lucide-phone"
           color="neutral"
           variant="soft"
           block
-        />
-        <UButton
-          label="Get started"
-          block
-          to="https://ui.nuxt.com"
-          target="_blank"
+          class="font-mono tracking-tight"
+          to="tel:+79263714200"
         />
       </div>
     </template>

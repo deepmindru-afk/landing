@@ -14,6 +14,12 @@ const createLinkSchema = () => z.object({
   variant: createEnum(['solid', 'outline', 'subtle', 'soft', 'ghost', 'link']).optional()
 })
 
+const createIconItemSchema = () => z.object({
+  icon: z.string(),
+  title: z.string().nonempty(),
+  description: z.string().nonempty()
+})
+
 export const collections = {
   content: defineCollection({
     source: 'index.yml',
@@ -39,11 +45,23 @@ export const collections = {
         headline: z.string().optional(),
         title: z.string().nonempty(),
         description: z.string().nonempty(),
+        items: z.array(createIconItemSchema())
+      }),
+      process: z.object({
+        headline: z.string().optional(),
+        title: z.string().nonempty(),
+        description: z.string().nonempty(),
         items: z.array(z.object({
-          icon: z.string(),
+          index: z.string().nonempty(),
           title: z.string().nonempty(),
           description: z.string().nonempty()
         }))
+      }),
+      about: z.object({
+        headline: z.string().optional(),
+        title: z.string().nonempty(),
+        description: z.string().nonempty(),
+        items: z.array(createIconItemSchema())
       }),
       metrics: z.object({
         headline: z.string().optional(),
@@ -55,10 +73,25 @@ export const collections = {
           class: z.string().nonempty()
         }))
       }),
+      contacts: z.object({
+        headline: z.string().optional(),
+        title: z.string().nonempty(),
+        description: z.string().nonempty(),
+        items: z.array(z.object({
+          icon: z.string(),
+          label: z.string().nonempty(),
+          value: z.string().nonempty(),
+          to: z.string().optional()
+        })),
+        links: z.array(createLinkSchema())
+      }),
       cta: z.object({
         title: z.string().nonempty(),
         description: z.string().nonempty(),
-        command: z.string().nonempty(),
+        phone: z.object({
+          value: z.string().nonempty(),
+          label: z.string().nonempty()
+        }),
         links: z.array(createLinkSchema())
       })
     })

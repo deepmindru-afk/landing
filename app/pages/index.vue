@@ -53,6 +53,14 @@ function staggerMotion(index: number = 0) {
   }
 }
 
+const sectionUi = {
+  root: 'py-24 sm:py-32 scroll-mt-(--ui-header-height)',
+  container: 'max-w-5xl',
+  headline: 'font-mono font-medium text-xs text-primary uppercase tracking-[0.12em] text-center',
+  title: 'max-w-lg mx-auto',
+  description: 'max-w-md mx-auto text-dimmed'
+}
+
 const { copy, copied } = useClipboard()
 </script>
 
@@ -65,7 +73,7 @@ const { copy, copied } = useClipboard()
         container: 'relative z-10 lg:py-32',
         wrapper: 'flex flex-col items-center',
         title: 'sm:text-6xl lg:text-7xl xl:text-[80px] tracking-tighter leading-[1.05]',
-        description: 'mt-5 max-w-xl mx-auto text-base sm:text-lg leading-relaxed text-default',
+        description: 'mt-5 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed text-default',
         links: 'gap-3'
       }"
     >
@@ -164,16 +172,10 @@ const { copy, copied } = useClipboard()
       </Motion>
     </UPageHero>
 
-    <!-- Features -->
+    <!-- Услуги -->
     <UPageSection
-      id="features"
-      :ui="{
-        root: 'py-24 sm:py-32 scroll-mt-(--ui-header-height)',
-        container: 'max-w-5xl',
-        headline: 'font-mono font-medium text-xs text-primary uppercase tracking-[0.12em] text-center',
-        title: 'max-w-lg mx-auto',
-        description: 'max-w-md mx-auto text-dimmed'
-      }"
+      id="services"
+      :ui="sectionUi"
     >
       <template #headline>
         <Motion
@@ -217,7 +219,7 @@ const { copy, copied } = useClipboard()
               :title="feature.title"
               :description="feature.description"
               class="rounded-none duration-300"
-              to="#"
+              to="#contacts"
               :ui="{
                 leading: 'mb-5 flex size-9 justify-center rounded-lg bg-primary/10',
                 title: 'text-sm tracking-tight',
@@ -229,16 +231,135 @@ const { copy, copied } = useClipboard()
       </div>
     </UPageSection>
 
-    <!-- Metrics -->
+    <!-- Как мы работаем -->
     <UPageSection
-      id="metrics"
+      id="process"
+      :ui="sectionUi"
+    >
+      <template #headline>
+        <Motion
+          as="span"
+          v-bind="scrollMotion()"
+          class="inline-block"
+        >
+          {{ page.process.headline }}
+        </Motion>
+      </template>
+
+      <template #title>
+        <Motion
+          as="span"
+          v-bind="scrollMotion(0.1)"
+          class="inline-block"
+        >
+          {{ page.process.title }}
+        </Motion>
+      </template>
+
+      <template #description>
+        <Motion
+          as="span"
+          v-bind="scrollMotion(0.2)"
+          class="inline-block"
+        >
+          {{ page.process.description }}
+        </Motion>
+      </template>
+
+      <div class="grid gap-px overflow-hidden rounded-2xl border border-default bg-default sm:grid-cols-2">
+        <Motion
+          v-for="(step, index) in page.process.items"
+          :key="step.index"
+          v-bind="staggerMotion(index)"
+        >
+          <UPageCard
+            :title="step.title"
+            :description="step.description"
+            class="h-full rounded-none duration-300"
+            :ui="{
+              root: 'h-full',
+              header: 'mb-4',
+              title: 'text-base tracking-tight',
+              description: 'text-sm leading-relaxed text-dimmed'
+            }"
+          >
+            <template #header>
+              <span class="font-mono text-xs font-medium text-primary tabular-nums">
+                {{ step.index }}
+              </span>
+            </template>
+          </UPageCard>
+        </Motion>
+      </div>
+    </UPageSection>
+
+    <!-- О компании -->
+    <UPageSection
+      id="about"
       :ui="{
         root: 'py-24 sm:py-32 scroll-mt-(--ui-header-height)',
         container: 'max-w-5xl',
         headline: 'font-mono font-medium text-xs text-primary uppercase tracking-[0.12em] text-center',
         title: 'max-w-lg mx-auto',
-        description: 'max-w-md mx-auto text-dimmed'
+        description: 'max-w-2xl mx-auto text-dimmed'
       }"
+    >
+      <template #headline>
+        <Motion
+          as="span"
+          v-bind="scrollMotion()"
+          class="inline-block"
+        >
+          {{ page.about.headline }}
+        </Motion>
+      </template>
+
+      <template #title>
+        <Motion
+          as="span"
+          v-bind="scrollMotion(0.1)"
+          class="inline-block"
+        >
+          {{ page.about.title }}
+        </Motion>
+      </template>
+
+      <template #description>
+        <Motion
+          as="span"
+          v-bind="scrollMotion(0.2)"
+          class="inline-block"
+        >
+          {{ page.about.description }}
+        </Motion>
+      </template>
+
+      <div class="mt-4 grid gap-px overflow-hidden rounded-2xl border border-default bg-default sm:grid-cols-2">
+        <Motion
+          v-for="(item, index) in page.about.items"
+          :key="item.title"
+          v-bind="staggerMotion(index)"
+        >
+          <UPageCard
+            :icon="item.icon"
+            :title="item.title"
+            :description="item.description"
+            class="h-full rounded-none duration-300"
+            :ui="{
+              root: 'h-full',
+              leading: 'mb-5 flex size-9 justify-center rounded-lg bg-primary/10',
+              title: 'text-sm tracking-tight',
+              description: 'text-sm leading-relaxed text-dimmed'
+            }"
+          />
+        </Motion>
+      </div>
+    </UPageSection>
+
+    <!-- Факты -->
+    <UPageSection
+      id="metrics"
+      :ui="sectionUi"
     >
       <template #headline>
         <Motion
@@ -281,17 +402,111 @@ const { copy, copied } = useClipboard()
               :title="metric.value"
               :description="metric.label"
               class="rounded-none duration-300"
-              to="#"
               :ui="{
                 root: 'text-center',
                 wrapper: 'items-center',
-                title: ['text-4xl font-bold tracking-tight leading-none', metric.class],
+                title: ['text-3xl font-bold tracking-tight leading-none', metric.class],
                 description: 'font-mono text-xs uppercase tracking-[0.06em] text-dimmed mt-3'
               }"
             />
           </Motion>
         </div>
       </div>
+    </UPageSection>
+
+    <!-- Контакты -->
+    <UPageSection
+      id="contacts"
+      :ui="{
+        root: 'py-24 sm:py-32 scroll-mt-(--ui-header-height)',
+        container: 'max-w-5xl',
+        headline: 'font-mono font-medium text-xs text-primary uppercase tracking-[0.12em] text-center',
+        title: 'max-w-lg mx-auto',
+        description: 'max-w-md mx-auto text-dimmed'
+      }"
+    >
+      <template #headline>
+        <Motion
+          as="span"
+          v-bind="scrollMotion()"
+          class="inline-block"
+        >
+          {{ page.contacts.headline }}
+        </Motion>
+      </template>
+
+      <template #title>
+        <Motion
+          as="span"
+          v-bind="scrollMotion(0.1)"
+          class="inline-block"
+        >
+          {{ page.contacts.title }}
+        </Motion>
+      </template>
+
+      <template #description>
+        <Motion
+          as="span"
+          v-bind="scrollMotion(0.2)"
+          class="inline-block"
+        >
+          {{ page.contacts.description }}
+        </Motion>
+      </template>
+
+      <div class="mt-4 overflow-hidden rounded-2xl border border-default bg-default">
+        <div class="grid gap-px">
+          <Motion
+            v-for="(item, index) in page.contacts.items"
+            :key="item.label"
+            v-bind="staggerMotion(index)"
+          >
+            <component
+              :is="item.to ? 'a' : 'div'"
+              :href="item.to"
+              class="group flex items-start gap-4 px-5 py-4 transition-colors duration-200 hover:bg-elevated/50 sm:px-6"
+              :class="item.to && 'focus-visible:outline-2 outline-primary/40'"
+            >
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <UIcon
+                  :name="item.icon"
+                  class="size-4.5"
+                />
+              </span>
+
+              <span class="flex flex-col gap-0.5">
+                <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-dimmed">
+                  {{ item.label }}
+                </span>
+                <span
+                  class="text-sm sm:text-base"
+                  :class="item.to ? 'font-medium group-hover:text-primary transition-colors duration-200' : 'text-toned'"
+                >
+                  {{ item.value }}
+                </span>
+              </span>
+
+              <UIcon
+                v-if="item.to"
+                name="i-lucide-arrow-up-right"
+                class="ms-auto size-4 shrink-0 text-dimmed transition-all duration-200 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </component>
+          </Motion>
+        </div>
+      </div>
+
+      <Motion
+        class="mt-8 flex flex-wrap items-center justify-center gap-6"
+        v-bind="scrollMotion(0.3)"
+      >
+        <UButton
+          v-for="link in page.contacts.links"
+          :key="link.label"
+          v-bind="link"
+        />
+      </Motion>
     </UPageSection>
 
     <!-- CTA -->
@@ -341,14 +556,15 @@ const { copy, copied } = useClipboard()
           />
 
           <UButton
-            :label="page.cta.command"
+            :label="page.cta.phone.value"
             :trailing-icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
             color="neutral"
             variant="subtle"
             class="font-mono font-light text-toned gap-4"
             size="xl"
             :ui="{ trailingIcon: 'size-5' }"
-            @click="copy(page.cta.command)"
+            :aria-label="page.cta.phone.label"
+            @click="copy(page.cta.phone.value)"
           />
         </Motion>
       </template>
